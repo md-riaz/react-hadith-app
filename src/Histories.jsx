@@ -1,4 +1,5 @@
 import React from 'react';
+import parse from 'html-react-parser';
 
 export default function Histories({ getThisHadith, setCurrentComp }) {
   let storageHistories = JSON.parse(localStorage['hadithHistory']);
@@ -20,7 +21,7 @@ export default function Histories({ getThisHadith, setCurrentComp }) {
                   ) && setCurrentComp('hadith')
                 }
               >
-                {index}. {hadith.topic ? hadith.topic : hadith.hadithNo}
+                {index}. {hadith.topic ? parse(hadith.topic) : hadith.hadithNo}
               </li>
             );
           })
