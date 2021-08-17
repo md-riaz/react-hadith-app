@@ -56,16 +56,12 @@ export default function App() {
     );
 
     // save uri to localStorage
-    let historyOBJ = { ...JSON.parse(localStorage.getItem('hadithHistory')) };
-
-    historyOBJ[randomHadith['hadithNo']] = {
-      topic: randomHadith['topicName'],
-      book_key: book_key,
-      chapterID: chapterID,
-      hadithNo: hadithNo
-    };
-
-    localStorage.setItem('hadithHistory', JSON.stringify(historyOBJ));
+    saveHistory(
+      randomHadith['topicName'],
+      randomBook['book_key'],
+      randomChapter['chSerial'],
+      randomHadith['hadithNo']
+    );
   };
 
   // set hadith info in url
@@ -111,16 +107,7 @@ export default function App() {
     setLoader(false);
 
     // save uri to localStorage
-    let historyOBJ = { ...JSON.parse(localStorage.getItem('hadithHistory')) };
-
-    historyOBJ[hadithNo] = {
-      topic: urlHadith['topicName'],
-      book_key: book_key,
-      chapterID: chapterID,
-      hadithNo: hadithNo
-    };
-
-    localStorage.setItem('hadithHistory', JSON.stringify(historyOBJ));
+    saveHistory(urlHadith['topicName'], book_key, chapterID, hadithNo);
   };
 
   // save current hadith to localStorage
@@ -137,6 +124,7 @@ export default function App() {
     };
 
     localStorage.setItem('hadithHistory', JSON.stringify(historyOBJ));
+    getHistories();
   };
 
   // get Histories from localStorage and send to state
@@ -162,6 +150,9 @@ export default function App() {
     } else {
       getHadiths();
     }
+
+    // get histories to state
+    getHistories();
   }, []);
 
   return (
@@ -177,6 +168,7 @@ export default function App() {
             <Histories
               getThisHadith={getThisHadith}
               setCurrentComp={setCurrentComp}
+              histories={histories}
             />
           )}
 

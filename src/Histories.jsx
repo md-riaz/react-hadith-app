@@ -1,16 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import parse from 'html-react-parser';
 
-export default function Histories({ getThisHadith, setCurrentComp }) {
-  const [histories, setHistories] = useState({});
-
-  useEffect(() => {
-    let localHistories = localStorage['hadithHistory'] ?? false;
-    localHistories = localHistories ? JSON.parse(localHistories) : {};
-
-    setHistories(localHistories);
-  }, []);
-
+export default function Histories({
+  getThisHadith,
+  setCurrentComp,
+  histories
+}) {
   return (
     <>
       <ul className="histories">
