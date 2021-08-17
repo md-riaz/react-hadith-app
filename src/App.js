@@ -158,7 +158,7 @@ export default function App() {
   return (
     <>
       {loader ? (
-        <div className="loader" />
+        <div className="pageLoader" />
       ) : (
         <>
           {currentComp === 'hadith' && (
