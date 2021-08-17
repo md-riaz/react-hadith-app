@@ -8,6 +8,7 @@ import reloadIcon from './assets/img/reload.svg';
 
 export default function App() {
   const [hadith, setHadith] = useState([]);
+  const [histories, setHistories] = useState({});
   const [loader, setLoader] = useState(true);
   const [currentComp, setCurrentComp] = useState('hadith');
 
@@ -76,6 +77,7 @@ export default function App() {
     );
   };
 
+  // get single hadith from parameters
   const getThisHadith = async (book_key, chapterID, hadithNo) => {
     setLoader(true);
 
@@ -121,6 +123,29 @@ export default function App() {
     localStorage.setItem('hadithHistory', JSON.stringify(historyOBJ));
   };
 
+  // save current hadith to localStorage
+  const saveHistory = (topic, book_key, chapterID, hadithNo) => {
+    let localHistories = localStorage['hadithHistory'] ?? false;
+
+    let historyOBJ = localHistories ? JSON.parse(localHistories) : {};
+
+    historyOBJ[hadithNo] = {
+      topic: topic,
+      book_key: book_key,
+      chapterID: chapterID,
+      hadithNo: hadithNo
+    };
+
+    localStorage.setItem('hadithHistory', JSON.stringify(historyOBJ));
+  };
+
+  // get Histories from localStorage and send to state
+  const getHistories = () => {
+    let localHistories = localStorage['hadithHistory'] ?? false;
+    localHistories = localHistories ? JSON.parse(localHistories) : {};
+    setHistories(localHistories);
+  };
+
   useEffect(() => {
     let urlParams = new URLSearchParams(location.search);
 
@@ -137,7 +162,6 @@ export default function App() {
     } else {
       getHadiths();
     }
-    console.log('effect running');
   }, []);
 
   return (
