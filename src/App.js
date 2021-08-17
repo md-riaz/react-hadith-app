@@ -57,7 +57,7 @@ export default function App() {
     // save uri to localStorage
     let historyOBJ = { ...JSON.parse(localStorage.getItem('hadithHistory')) };
 
-    historyOBJ[hadithNo] = {
+    historyOBJ[randomHadith['hadithNo']] = {
       topic: urlHadith['topicName'],
       book_key: book_key,
       chapterID: chapterID,
