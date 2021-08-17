@@ -55,13 +55,13 @@ export default function App() {
     );
 
     // save uri to localStorage
-    let historyOBJ = {};
+    let historyOBJ = { ...JSON.parse(localStorage.getItem('hadithHistory')) };
 
-    historyOBJ[randomHadith['hadithNo']] = {
-      topic: randomHadith['topicName'],
-      book_key: randomBook['book_key'],
-      chapterID: randomChapter['chSerial'],
-      hadithNo: randomHadith['hadithNo']
+    historyOBJ[hadithNo] = {
+      topic: urlHadith['topicName'],
+      book_key: book_key,
+      chapterID: chapterID,
+      hadithNo: hadithNo
     };
 
     localStorage.setItem('hadithHistory', JSON.stringify(historyOBJ));
@@ -109,7 +109,7 @@ export default function App() {
     setLoader(false);
 
     // save uri to localStorage
-    let historyOBJ = {};
+    let historyOBJ = { ...JSON.parse(localStorage.getItem('hadithHistory')) };
 
     historyOBJ[hadithNo] = {
       topic: urlHadith['topicName'],
@@ -137,6 +137,7 @@ export default function App() {
     } else {
       getHadiths();
     }
+    console.log('effect running');
   }, []);
 
   return (

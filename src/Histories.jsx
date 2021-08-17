@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Histories({ getThisHadith, setCurrentComp }) {
-  const storageHistories = JSON.parse(localStorage['hadithHistory']);
+  let storageHistories = JSON.parse(localStorage['hadithHistory']);
 
   return (
     <>
