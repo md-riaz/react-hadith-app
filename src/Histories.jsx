@@ -1,29 +1,36 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import parse from 'html-react-parser';
 
 export default function Histories({ getThisHadith, setCurrentComp }) {
-  let storageHistories = JSON.parse(localStorage['hadithHistory']);
-  const [histories, setHistories] = useState(storageHistories);
+  const [histories, setHistories] = useState({});
+
+  useEffect(() => {
+    let localHistories = localStorage['hadithHistory'] ?? false;
+    localHistories = localHistories ? JSON.parse(localHistories) : {};
+
+    setHistories(localHistories);
+  });
 
   return (
     <>
       <ul className="histories">
-        {Object.keys(storageHistories).length ? (
-          Object.keys(storageHistories).map(function(key, index) {
-            let hadith = storageHistories[key];
+        {Object.keys(histories).length ? (
+          Object.keys(histories).map(function(key, index) {
+            let history = histories[key];
             return (
               <li
                 key={index}
                 onClick={() => {
                   getThisHadith(
-                    hadith.book_key,
-                    hadith.chapterID,
-                    hadith.hadithNo
+                    history.book_key,
+                    history.chapterID,
+                    history.hadithNo
                   );
                   setCurrentComp('hadith');
                 }}
               >
-                {index}. {hadith.topic ? parse(hadith.topic) : hadith.hadithNo}
+                {index}.{' '}
+                {history.topic ? parse(history.topic) : history.hadithNo}
               </li>
             );
           })
