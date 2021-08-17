@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import parse from 'html-react-parser';
 import Hadith from './Hadith';
 import Histories from './Histories';
 
