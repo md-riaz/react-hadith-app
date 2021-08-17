@@ -57,7 +57,7 @@ export default function App() {
     // save uri to localStorage
     let historyOBJ = { ...JSON.parse(localStorage.getItem('hadithHistory')) };
 
-    historyOBJ[randomHadith['hadithNo']] = {
+    historyOBJ[Date.now()] = {
       topic: randomHadith['topicName'],
       book_key: book_key,
       chapterID: chapterID,
@@ -111,7 +111,7 @@ export default function App() {
     // save uri to localStorage
     let historyOBJ = { ...JSON.parse(localStorage.getItem('hadithHistory')) };
 
-    historyOBJ[hadithNo] = {
+    historyOBJ[Date.now()] = {
       topic: urlHadith['topicName'],
       book_key: book_key,
       chapterID: chapterID,
@@ -156,7 +156,10 @@ export default function App() {
             />
           )}
 
-          <div className="reload" onClick={() => getHadiths()}>
+          <div
+            className="reload"
+            onClick={() => getHadiths() && setCurrentComp('hadith')}
+          >
             <img src={reloadIcon} alt="reload" />
           </div>
         </>
