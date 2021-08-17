@@ -9,7 +9,7 @@ export default function Histories({ getThisHadith, setCurrentComp }) {
     localHistories = localHistories ? JSON.parse(localHistories) : {};
 
     setHistories(localHistories);
-  });
+  }, []);
 
   return (
     <>
