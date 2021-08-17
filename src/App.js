@@ -119,7 +119,8 @@ export default function App() {
       topic: topic,
       book_key: book_key,
       chapterID: chapterID,
-      hadithNo: hadithNo
+      hadithNo: hadithNo,
+      time: Date.now()
     };
 
     localStorage.setItem('hadithHistory', JSON.stringify(historyOBJ));
