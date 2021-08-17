@@ -131,7 +131,12 @@ export default function App() {
   const getHistories = () => {
     let localHistories = localStorage['hadithHistory'] ?? false;
     localHistories = localHistories ? JSON.parse(localHistories) : {};
-    setHistories(localHistories);
+
+    let sortedHistories = Object.entries(localHistories).sort(
+      (a, b) => b[1].time - a[1].time
+    );
+
+    setHistories(sortedHistories);
   };
 
   useEffect(() => {
