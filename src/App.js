@@ -3,7 +3,7 @@ import Hadith from './Hadith';
 import Histories from './Histories';
 
 import './assets/css/style.scss';
-import reloadIcon from './assets/img/reload.svg';
+import refresh from './assets/img/refresh.svg';
 
 export default function App() {
   const [hadith, setHadith] = useState([]);
@@ -181,7 +181,7 @@ export default function App() {
             className="reload"
             onClick={() => getHadiths() && setCurrentComp('hadith')}
           >
-            <img src={reloadIcon} alt="reload" />
+            <img src={refresh} alt="reload" />
           </div>
         </>
       )}
