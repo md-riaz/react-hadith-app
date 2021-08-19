@@ -41,7 +41,7 @@ body {
     position: absolute;
     z-index: 999;
     top: calc(50% - 3em);
-    left: calc(50% - 3em);
+    left: calc(50% - 4em);
     width: 6em;
     height: 6em;
     border: 1.1em solid rgba(255, 255, 255, 0.9);
@@ -54,7 +54,7 @@ body {
     content: 'আইতাছি...';
     position: absolute;
     top: calc(50% + 6em);
-    left: calc(50% + 1.5em);
+    left: 50%;
     transform: translateX(-50%);
   }
 }

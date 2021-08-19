@@ -166,6 +166,7 @@ export default function App() {
         <div className="pageLoader" />
       ) : (
         <>
+          <div className="pageLoader" />
           {currentComp === 'hadith' && (
             <Hadith hadith={hadith} setCurrentComp={setCurrentComp} />
           )}
