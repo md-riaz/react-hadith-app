@@ -19,6 +19,11 @@ export default function App() {
     let books = await fetch('https://alquranbd.com/api/hadith').then(res =>
       res.json().then(books => books.filter(item => item.book_key != ''))
     );
+
+    if (!books) {
+      getHadiths();
+    }
+
     let randomBook = books[Math.floor(Math.random() * books.length)];
 
     // get all available chapters from the random book
@@ -139,6 +144,12 @@ export default function App() {
     setHistories(sortedHistories);
   };
 
+  // delete current histories
+  const deleteHistories = () => {
+    setHistories({});
+    localStorage.removeItem('hadithHistory');
+  };
+
   useEffect(() => {
     let urlParams = new URLSearchParams(location.search);
 
@@ -174,6 +185,7 @@ export default function App() {
               getThisHadith={getThisHadith}
               setCurrentComp={setCurrentComp}
               histories={histories}
+              deleteHistories={deleteHistories}
             />
           )}
 

@@ -16,9 +16,14 @@ export default function Hadith({ hadith, setCurrentComp }) {
         <p className="book">বইঃ {parse(`${hadith.book}`)}</p>
         <p className="chapter">অধ্যায়ঃ {parse(`${hadith.chapter}`)}</p>
       </div>
-      <button className="historyBtn" onClick={() => setCurrentComp('history')}>
-        Show History
-      </button>
+      <div className="text-center">
+        <button
+          className="btn btn-warning"
+          onClick={() => setCurrentComp('history')}
+        >
+          Show History
+        </button>
+      </div>
     </>
   );
 }
