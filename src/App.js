@@ -132,9 +132,9 @@ export default function App() {
     let localHistories = localStorage['hadithHistory'] ?? false;
     localHistories = localHistories ? JSON.parse(localHistories) : {};
 
-    let sortedHistories = Object.entries(localHistories).sort(
-      (a, b) => b[1].time - a[1].time
-    );
+    let sortedHistories = Object.entries(localHistories)
+      .sort((a, b) => b[1].time - a[1].time)
+      .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
 
     setHistories(sortedHistories);
   };
