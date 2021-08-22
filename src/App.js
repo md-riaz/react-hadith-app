@@ -13,59 +13,59 @@ export default function App() {
 
   // get random hadith from api
   const getHadiths = async function() {
-    setLoader(true);
+    try {
+      setLoader(true);
 
-    // get all available books
-    let books = await fetch('https://alquranbd.com/api/hadith').then(res =>
-      res.json().then(books => books.filter(item => item.book_key != ''))
-    );
+      // get all available books
+      let books = await fetch('https://alquranbd.com/api/hadith').then(res =>
+        res.json().then(books => books.filter(item => item.book_key != ''))
+      );
 
-    if (!books) {
+      let randomBook = books[Math.floor(Math.random() * books.length)];
+
+      // get all available chapters from the random book
+      let chapters = await fetch(
+        `https://alquranbd.com/api/hadith/${randomBook['book_key']}`
+      ).then(res => res.json());
+      let randomChapter = chapters[Math.floor(Math.random() * chapters.length)];
+
+      // get all available hadith from the random chapter
+      let hadiths = await fetch(
+        `https://alquranbd.com/api/hadith/${randomBook['book_key']}/${
+          randomChapter['chSerial']
+        }`
+      ).then(res => res.json());
+      let randomHadith = hadiths[Math.floor(Math.random() * hadiths.length)];
+
+      let hadith = {
+        topicName: randomHadith['topicName'],
+        book: randomBook['nameBengali'],
+        chapter: randomChapter['nameBengali'],
+        hadithArabic: randomHadith['hadithArabic'],
+        hadithEnglish: randomHadith['hadithEnglish'],
+        hadithBengali: randomHadith['hadithBengali']
+      };
+
+      setHadith(hadith);
+      setLoader(false);
+
+      // set url for this hadith
+      setHadithURL(
+        randomBook['book_key'],
+        randomChapter['chSerial'],
+        randomHadith['hadithNo']
+      );
+
+      // save uri to localStorage
+      saveHistory(
+        randomHadith['topicName'],
+        randomBook['book_key'],
+        randomChapter['chSerial'],
+        randomHadith['hadithNo']
+      );
+    } catch (e) {
       getHadiths();
     }
-
-    let randomBook = books[Math.floor(Math.random() * books.length)];
-
-    // get all available chapters from the random book
-    let chapters = await fetch(
-      `https://alquranbd.com/api/hadith/${randomBook['book_key']}`
-    ).then(res => res.json());
-    let randomChapter = chapters[Math.floor(Math.random() * chapters.length)];
-
-    // get all available hadith from the random chapter
-    let hadiths = await fetch(
-      `https://alquranbd.com/api/hadith/${randomBook['book_key']}/${
-        randomChapter['chSerial']
-      }`
-    ).then(res => res.json());
-    let randomHadith = hadiths[Math.floor(Math.random() * hadiths.length)];
-
-    let hadith = {
-      topicName: randomHadith['topicName'],
-      book: randomBook['nameBengali'],
-      chapter: randomChapter['nameBengali'],
-      hadithArabic: randomHadith['hadithArabic'],
-      hadithEnglish: randomHadith['hadithEnglish'],
-      hadithBengali: randomHadith['hadithBengali']
-    };
-
-    setHadith(hadith);
-    setLoader(false);
-
-    // set url for this hadith
-    setHadithURL(
-      randomBook['book_key'],
-      randomChapter['chSerial'],
-      randomHadith['hadithNo']
-    );
-
-    // save uri to localStorage
-    saveHistory(
-      randomHadith['topicName'],
-      randomBook['book_key'],
-      randomChapter['chSerial'],
-      randomHadith['hadithNo']
-    );
   };
 
   // set hadith info in url
